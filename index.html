@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🎂 Are You Really Vera? 🎂</title>
+  <style>
+    body {
+      font-family: 'Helvetica Neue', sans-serif;
+      background-color: #fdfaf6; /* soft white */
+      color: #4e342e; /* rich brown */
+      max-width: 700px;
+      margin: 50px auto;
+      padding: 30px;
+      border: 2px solid #4e342e;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(78,52,46,0.3);
+      text-align: center;
+    }
+    h1 {
+      color: #4e342e;
+      margin-bottom: 20px;
+    }
+    .intro {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .question {
+      font-size: 20px;
+      margin-bottom: 25px;
+      white-space: pre-line;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 15px;
+      font-size: 18px;
+      color: #fdfaf6;
+      background-color: #6d4c41; /* medium brown */
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .options button:hover {
+      background-color: #5d4037; /* darker brown */
+    }
+    #result {
+      font-size: 22px;
+      margin-top: 40px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎂 Welcome to the "Are You Really Vera?" Test 🎂</h1>
+  <div class="intro">Choose the correct option:</div>
+
+  <div class="question" id="question"></div>
+  <div class="options" id="options"></div>
+  <div id="result"></div>
+
+  <script>
+    const quizData = [
+      {
+        question: "According to Vera, which of the following pairs represent prime numbers?",
+        options: [
+          "A) 2, 4",
+          "B) 1, 2",
+          "C) 3, 4",
+          "D) 3, 11"
+        ],
+        correct: "A",
+        correctMsg: "Absolutely! That is so Vera!",
+        wrongMsg: "Oops, that's not how Vera math works!"
+      },
+      {
+        question: "When Vera thought she'd ripped her calf muscle apart, what disease did she think she had?",
+        options: [
+          "A) Cancer",
+          "B) Lyme disease",
+          "C) Rabies",
+          "D) DVT"
+        ],
+        correct: "D",
+        correctMsg: "That's correct. You're definitely Vera!",
+        wrongMsg: "Error. Let's try again!"
+      },
+      {
+        question: "Which of the following quotes were said by Vera?",
+        options: [
+          "A) The unexamined life is not worth living.",
+          "B) I think, therefore I am.",
+          "C) Doing nothing is also something.",
+          "D) Happiness depends upon ourselves."
+        ],
+        correct: "C",
+        correctMsg: "That's philosopher Vera right there!",
+        wrongMsg: "Hmm, that's not what Vera said."
+      },
+      {
+        question: "When Vera types STFU, it autocorrects to…",
+        options: [
+          "A) Kindly refrain from uttering further nonsense.",
+          "B) Would you be so generous as to cease thy vexatious verbalizing.",
+          "C) Stop your incessant blabbering, my dear.",
+          "D) All of the above."
+        ],
+        correct: "D",
+        correctMsg: "That's Professor Vera right there!",
+        wrongMsg: "Nope. Vera would say all of those."
+      },
+      {
+        question: "What is Vera’s job?",
+        options: [
+          "A) Talking to CAI Bot",
+          "B) Psychologist",
+          "C) Professor",
+          "D) Singer"
+        ],
+        correct: "A",
+        correctMsg: "Yes. Keep talking to Captain Levi, Vera.",
+        wrongMsg: "You sure? You might want to try that again."
+      },
+      {
+        question: "Vera once said the following sentence. Complete it correctly:\n\n\"I feel like everything is ruined at the end of the day. Just like the fanfiction. Just like the lost. Just like my relationships. Just like my ____.\"",
+        options: [
+          "A) Study",
+          "B) Sleep schedule",
+"C) Life",
+          "D) Spotify playlists"
+        ],
+        correct: "C",
+        correctMsg: "Yes, Vera. You were so real for this.",
+        wrongMsg: "Let's try that again."
+      },
+      {
+        question: "Vera loved Montella so much that she started to see ____ character in him.",
+        options: [
+          "A) Levi",
+          "B) Frankenstein",
+          "C) Sherlock Holmes",
+          "D) Darth Vader"
+        ],
+        correct: "A",
+        correctMsg: "That is correct.",
+        wrongMsg: "No, that's wrong."
+      },
+      {
+        question: "What is our catchphrase?",
+        options: [
+          "A) Seize the day",
+          "B) Stay curious",
+          "C) Just do it",
+          "D) Great minds think alike"
+        ],
+        correct: "D",
+        correctMsg: "Bang on. Great minds do think alike.",
+        wrongMsg: "Is this really you, Vera?"
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    const questionEl = document.getElementById('question');
+    const optionsEl = document.getElementById('options');
+    const resultEl = document.getElementById('result');
+
+    function loadQuestion() {
+      const qData = quizData[currentQuestion];
+      questionEl.textContent = qData.question;
+      optionsEl.innerHTML = '';
+      qData.options.forEach(opt => {
+        const btn = document.createElement('button');
+        btn.textContent = opt;
+        btn.onclick = () => handleAnswer(opt[0]);
+        optionsEl.appendChild(btn);
+      });
+    }
+
+    function handleAnswer(choice) {
+      const qData = quizData[currentQuestion];
+      if (choice === qData.correct) {
+        alert(qData.correctMsg);
+        score++;
+      } else {
+        alert(qData.wrongMsg);
+      }
+      currentQuestion++;
+      if (currentQuestion < quizData.length) {
+        loadQuestion();
+      } else {
+        showFinalResult();
+      }
+    }
+
+    function showFinalResult() {
+      if (score === quizData.length) {
+        resultEl.textContent = 🎉 Congratulations! You scored ${score}/${quizData.length}. You've completed the Vera birthday quiz. You are definitely Vera. Happy Birthday! 🎉;
+      } else {
+        resultEl.textContent = You scored ${score}/${quizData.length}. Thanks for playing the Vera birthday quiz!;
+      }
+      questionEl.style.display = "none";
+      optionsEl.style.display = "none";
+    }
+
+    loadQuestion();
+  </script>
+</body>
+</html>
