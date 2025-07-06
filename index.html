@@ -128,7 +128,7 @@
         options: [
           "A) Study",
           "B) Sleep schedule",
-"C) Life",
+          "C) Life",
           "D) Spotify playlists"
         ],
         correct: "C",
@@ -175,7 +175,7 @@
       qData.options.forEach(opt => {
         const btn = document.createElement('button');
         btn.textContent = opt;
-        btn.onclick = () => handleAnswer(opt[0]);
+        btn.onclick = () => handleAnswer(opt[0]); // use first letter (e.g., "A")
         optionsEl.appendChild(btn);
       });
     }
@@ -198,9 +198,9 @@
 
     function showFinalResult() {
       if (score === quizData.length) {
-        resultEl.textContent = 🎉 Congratulations! You scored ${score}/${quizData.length}. You've completed the Vera birthday quiz. You are definitely Vera. Happy Birthday! 🎉;
+        resultEl.textContent = `🎉 Congratulations! You scored ${score}/${quizData.length}. You've completed the Vera birthday quiz. You are definitely Vera. Happy Birthday! 🎉`;
       } else {
-        resultEl.textContent = You scored ${score}/${quizData.length}. Thanks for playing the Vera birthday quiz!;
+        resultEl.textContent = `You scored ${score}/${quizData.length}. Thanks for playing the Vera birthday quiz!`;
       }
       questionEl.style.display = "none";
       optionsEl.style.display = "none";
